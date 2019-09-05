@@ -18,7 +18,7 @@ namespace Proyecto.API.Controllers
         {
             this.configuration = configuration;
         }
-        // GET: api/peliculas/love
+        
         [HttpGet("{title}", Name = "GetBykey")]
         public IEnumerable<Key> GetBykey(String title)
         {
