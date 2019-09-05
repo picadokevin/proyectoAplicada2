@@ -10,12 +10,12 @@ using System.Text;
 
 namespace Proyecto.Model.Data
 {
-    public class Conexion
+    public class ConexionData
     {
 
         String connectionString;
 
-        public Conexion(string connectionString)
+        public ConexionData(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -42,12 +42,12 @@ namespace Proyecto.Model.Data
 
         public List<Key> GetKey(String Key)
         {
-            NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres; " +
-                 "Password=pwd;Database=postgres;");
+            NpgsqlConnection conn = new NpgsqlConnection("Server=SG-proyectoLenguajes-156-pgsql-master.servers.mongodirector.com;User Id=sgpostgres; " +
+                 "Password=FroKna&lOIbfG9iM;Database=ProyectoAplicada;");
             conn.Open();
 
             // Define a query returning a single row result set
-            NpgsqlCommand command = new NpgsqlCommand("SELECT COUNT(*) FROM cities", conn);
+            NpgsqlCommand command = new NpgsqlCommand("SELECT* FROM key", conn);
 
             NpgsqlDataReader rdr = command.ExecuteReader();
             List<Key> keylist = new List<Key>();
@@ -56,8 +56,8 @@ namespace Proyecto.Model.Data
                 Key key = new Key();
 
 
-                key.CodKey = rdr["Name"].ToString();
-                key.Status1 = Convert.ToInt32(rdr["StudentID"]);
+                key.CodKey = rdr["idkey"].ToString();
+                key.Status1 = rdr["estado"].ToString();
 
                 keylist.Add(key);
             }
