@@ -10,22 +10,20 @@ using Proyecto.Model.Domain;
 namespace Proyecto.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/conexion")]
-    public class ConexionController : Controller
+    [Route("api/product")]
+    public class ProductController : Controller
     {
         private readonly IConfiguration configuration;
-        public ConexionController(IConfiguration configuration)
+        public ProductController(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-        
-        [HttpGet("{title}", Name = "GetBykey")]
-        public IEnumerable<Key> GetBykey(String title)
+        [HttpGet("{title}", Name = "GetByTitle")]
+        public IEnumerable<Producto> GetByTitle(String title)
         {
             ConexionData conexionData =
                 new ConexionData(configuration.GetConnectionString("VideoContext").ToString());
-            return conexionData.GetKey(title);
+            return conexionData.getAllProducts(title);
         }
-       
     }
 }

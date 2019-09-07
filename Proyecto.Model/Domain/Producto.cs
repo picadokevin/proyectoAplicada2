@@ -12,12 +12,14 @@ namespace Proyecto.Model.Domain
         private String descriptionProduct;
         private String image;
         private Category category;
+        private string status;
+
         public Producto()
         {
             category = new Category();
         }
 
-        public Producto(int codProduct, string nameProduct, float priceProduct, string descriptionProduct, string image, Category category)
+        public Producto(int codProduct, string nameProduct, float priceProduct, string descriptionProduct, string image, Category category,string status)
         {
             this.codProduct = codProduct;
             this.nameProduct = nameProduct;
@@ -25,6 +27,7 @@ namespace Proyecto.Model.Domain
             this.descriptionProduct = descriptionProduct;
             this.image = image;
             this.category = category;
+            this.status = status;
         }
 
         public int CodProduct { get => codProduct; set => codProduct = value; }
@@ -33,6 +36,7 @@ namespace Proyecto.Model.Domain
         public string DescriptionProduct { get => descriptionProduct; set => descriptionProduct = value; }
         public string Image { get => image; set => image = value; }
         public Category Category { get => category; set => category = value; }
+        public string Status { get => status; set => status = value; }
     }
 
 }

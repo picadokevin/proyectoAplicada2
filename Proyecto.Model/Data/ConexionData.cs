@@ -42,12 +42,12 @@ namespace Proyecto.Model.Data
 
         public List<Key> GetKey(String Key)
         {
-            NpgsqlConnection conn = new NpgsqlConnection("Server=SG-proyectoLenguajes-156-pgsql-master.servers.mongodirector.com;User Id=sgpostgres; " +
-                 "Password=FroKna&lOIbfG9iM;Database=ProyectoAplicada;");
-            conn.Open();
+            NpgsqlConnection con = new NpgsqlConnection("Server= SG-aplicada-177-pgsql-master.servers.mongodirector.com;User Id=sgpostgres;" +
+                 "Password=G-AmuVJOw494lHV4;Database=postgres;"); 
+            con.Open();
 
             // Define a query returning a single row result set
-            NpgsqlCommand command = new NpgsqlCommand("SELECT* FROM key", conn);
+            NpgsqlCommand command = new NpgsqlCommand("SELECT* FROM suppliers", con);
 
             NpgsqlDataReader rdr = command.ExecuteReader();
             List<Key> keylist = new List<Key>();
@@ -56,12 +56,12 @@ namespace Proyecto.Model.Data
                 Key key = new Key();
 
 
-                key.CodKey = rdr["idkey"].ToString();
-                key.Status1 = rdr["estado"].ToString();
+                key.CodKey = rdr["keySupplier"].ToString();
+                key.IdSuppliers = Convert.ToInt32(rdr["idSupplier"]);
 
                 keylist.Add(key);
             }
-            conn.Close();
+            con.Close();
             return keylist;
         }
 
@@ -70,30 +70,96 @@ namespace Proyecto.Model.Data
         public List<Producto> getAllProducts(String key)
         {
 
-            MySqlConnection conn = new MySqlConnection("Server=127.0.0.1;User Id=postgres; " +
-                     "Password=pwd;Database=postgres;");
-            conn.Open();
+           
 
-            // Define a query returning a single row result set
-            MySqlCommand command = new MySqlCommand("SELECT ALL FROM productos", conn);
-
-            MySqlDataReader rdr = command.ExecuteReader();
+         
             List<Producto> productList = new List<Producto>();
-            if (GetKey(key).Count>=1)
-                while (rdr.Read())
-                {
-                    Producto product = new Producto();
+            List<Key> suppliers = new List<Key>();
+            suppliers = GetKey(key);
 
-                    product.CodProduct = Convert.ToInt32(rdr["StudentID"]);
-                    product.NameProduct = rdr["Name"].ToString();
-                    product.PriceProduct = Convert.ToInt32(rdr["StudentID"]);
-                    product.DescriptionProduct = rdr["Name"].ToString();
-                    product.Image = rdr["Name"].ToString();
-                    product.Category.CodCategory = Convert.ToInt32(rdr["StudentID"]);
-                    
-                   productList.Add(product);
+            if (GetKey(key).Count >= 1)
+            {
+                foreach (Key k in suppliers)
+                {
+                    if (k.IdSuppliers==1)
+                    {
+                        MySqlConnection conn = new MySqlConnection("Server=163.178.107.130;User Id=laboratorios; " +
+                  "Password=UCRSA.118;Database=hc_laptops;");
+                        conn.Open();
+                        // Define a query returning a single row result set
+                        MySqlCommand command = new MySqlCommand("SELECT * FROM listap", conn);
+
+                        MySqlDataReader rdr = command.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            Producto product = new Producto();
+
+                            product.CodProduct = Convert.ToInt32(rdr["idProduct"]);
+                            product.NameProduct = rdr["nameProduct"].ToString();
+                            product.PriceProduct = Convert.ToInt32(rdr["priceProduct"]);
+                            product.DescriptionProduct = rdr["descProduct"].ToString();
+                            product.Image = rdr["imagLaptop"].ToString();
+                            product.Category.DetailCategory = rdr["category"].ToString();
+
+                            productList.Add(product);
+                        }
+                        conn.Close();
+
+                    }
+                    else if (k.IdSuppliers == 2)
+                    {
+                        MySqlConnection conn = new MySqlConnection("Server=163.178.107.130;User Id=laboratorios; " +
+                "Password=UCRSA.118;Database=hc_cameras;");
+                        conn.Open();
+                        // Define a query returning a single row result set
+                        MySqlCommand command = new MySqlCommand("SELECT * FROM listap", conn);
+
+                        MySqlDataReader rdr = command.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            Producto product = new Producto();
+
+                            product.CodProduct = Convert.ToInt32(rdr["idProduct"]);
+                            product.NameProduct = rdr["nameProduct"].ToString();
+                            product.PriceProduct = Convert.ToInt32(rdr["priceProduct"]);
+                            product.DescriptionProduct = rdr["descProduct"].ToString();
+                            product.Image = rdr["imagLaptop"].ToString();
+                            product.Category.DetailCategory = rdr["category"].ToString();
+
+                            productList.Add(product);
+                        }
+                        conn.Close();
+                    }
+                    else
+                    {
+                        MySqlConnection conn = new MySqlConnection("Server=163.178.107.130;User Id=laboratorios; " +
+                "Password=UCRSA.118;Database=hc_smartphones;");
+                        conn.Open();
+                        // Define a query returning a single row result set
+                        MySqlCommand command = new MySqlCommand("SELECT * FROM listap", conn);
+
+                        MySqlDataReader rdr = command.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            Producto product = new Producto();
+
+                            product.CodProduct = Convert.ToInt32(rdr["idProduct"]);
+                            product.NameProduct = rdr["nameProduct"].ToString();
+                            product.PriceProduct = Convert.ToInt32(rdr["priceProduct"]);
+                            product.DescriptionProduct = rdr["descProduct"].ToString();
+                            product.Image = rdr["imagLaptop"].ToString();
+                            product.Category.DetailCategory = rdr["category"].ToString();
+
+                            productList.Add(product);
+                        }
+                        conn.Close();
+                    }
                 }
-            conn.Close();
+
+
+                  
+               
+            }
             return productList;
         }
     }

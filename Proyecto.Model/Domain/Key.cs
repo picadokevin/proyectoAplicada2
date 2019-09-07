@@ -7,19 +7,20 @@ namespace Proyecto.Model.Domain
     public class Key
     {
         private String codKey;
-        private string Status;
+       
+        private int idSuppliers;
 
         public Key()
         {
         }
 
-        public Key(string codKey, string status)
+        public Key(string codKey, int idSuppliers)
         {
             this.codKey = codKey;
-            Status = status;
+            this.idSuppliers = idSuppliers;
         }
 
         public string CodKey { get => codKey; set => codKey = value; }
-        public string Status1 { get => Status; set => Status = value; }
+        public int IdSuppliers { get => idSuppliers; set => idSuppliers = value; }
     }
 }
