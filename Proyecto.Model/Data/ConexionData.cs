@@ -172,15 +172,15 @@ namespace Proyecto.Model.Data
                 con.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand();
                 cmd.Connection = con;
-                cmd.CommandText = "INSERT INTO public.products VALUES( idProduct, 'nameProduct', priceProduct, 'descProduct', 'imageProduct', 'idCategory', 'status'); ";
+                cmd.CommandText = "INSERT INTO public.products VALUES( @idProduct, @nameProduct, @priceProduct, @descProduct, @imageProduct, @idCategory,@status); ";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add(new NpgsqlParameter ("idproduct", product.CodProduct));
-                cmd.Parameters.Add(new NpgsqlParameter("nameProduct", product.NameProduct));
-                cmd.Parameters.Add(new NpgsqlParameter("priceProduct", product.PriceProduct));
-                cmd.Parameters.Add(new NpgsqlParameter("descProduct", product.DescriptionProduct));
-                cmd.Parameters.Add(new NpgsqlParameter("imageProduct", product.Image));
-                cmd.Parameters.Add(new NpgsqlParameter("idCategory", product.Category.CodCategory));
-                cmd.Parameters.Add(new NpgsqlParameter("status", product.Status));
+                cmd.Parameters.Add(new NpgsqlParameter ("@idProduct", product.CodProduct));
+                cmd.Parameters.Add(new NpgsqlParameter("@nameProduct", product.NameProduct));
+                cmd.Parameters.Add(new NpgsqlParameter("@priceProduct", product.PriceProduct));
+                cmd.Parameters.Add(new NpgsqlParameter("@descProduct", product.DescriptionProduct));
+                cmd.Parameters.Add(new NpgsqlParameter("@imageProduct", product.Image));
+                cmd.Parameters.Add(new NpgsqlParameter("@idCategory", product.Category.CodCategory));
+                cmd.Parameters.Add(new NpgsqlParameter("@status", product.Status));
 
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
